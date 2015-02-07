@@ -68,8 +68,11 @@ set title
 set wildmenu
 " 入力中のコマンドを表示する
 set showcmd
-" バックアップディレクトリの指定(でもバックアップは使ってない)
-set backupdir=$HOME/.vimbackup
+" バックアップしない
+set nowritebackup
+set nobackup
+set noswapfile
+
 " バッファで開いているファイルのディレクトリでエクスクローラを開始する(でもエクスプローラって使ってない)
 set browsedir=buffer
 " 小文字のみで検索したときに大文字小文字を無視する
