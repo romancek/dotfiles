@@ -2,3 +2,5 @@ BoldAsFont=no
 Columns=120
 Rows=72
 Transparency=medium
+BackgroundColour=51,51,51
+Term=xterm-256color

@@ -105,15 +105,6 @@ set backspace=indent,eol,start
 
 set expandtab
 
-" indent guides
-
-let g:indent_guides_auto_colors=0
-let g:indent_guides_enable_on_vim_statrup=1
-let g:indent_guides_start_level=1
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven  guibg=#262626 ctermbg=gray
-autocmd VimEnter,Colorscheme * :hi IndentGUidesOdd guibg=#3c3c3c ctermbg=darkgray
-let g:indent_guides_guide_size = &tabstop
-
 " 構文毎に文字色を変化させる
 syntax on
 " colorscheme
@@ -125,6 +116,15 @@ set background=light
 set background=dark
 " 行番号の色
 highlight LineNr ctermfg=grey
+
+" indent guides
+let g:indent_guides_auto_colors=0
+let g:indent_guides_start_level=1
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=darkgray
+"autocmd VimEnter,Colorscheme * :hi IndentGUidesOdd ctermbg=black
+let g:indent_guides_guide_size = &tabstop
+" Vim起動時にIndent Guidesを有効にする
+au VimEnter * IndentGuidesEnable
 
 """"""""""""""""""""""""""""""
 
@@ -164,7 +164,7 @@ function! ZenkakuSpace()
 endfunction
 
 if has('syntax')
-   augroup ZenkakuSpace
+    augroup ZenkakuSpace
     autocmd!
     autocmd ColorScheme * call ZenkakuSpace()
     autocmd VimEnter,WinEnter,BufRead * let w:m1=matchadd('ZenkakuSpace', '　')
