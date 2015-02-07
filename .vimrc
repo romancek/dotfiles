@@ -34,7 +34,8 @@ NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'vim-scripts/AnsiEsc.vim'
 " less用のsyntaxハイライト
 NeoBundle 'KohPoll/vim-less'
-
+" colorscheme molokai
+NeoBundle 'tomasr/molokai'
 call neobundle#end()
 
 " Required:
@@ -48,6 +49,7 @@ NeoBundleCheck
 """"""""""""""""""""""""""""""
 " 各種オプションの設定
 """"""""""""""""""""""""""""""
+
 " タグファイルの指定(でもタグジャンプは使ったことがない)
 set tags=~/.tags
 " スワップファイルは使わない(ときどき面倒な警告が出るだけで役に立ったことがない)
@@ -58,8 +60,6 @@ set ruler
 set cmdheight=2
 " エディタウィンドウの末尾から2行目にステータスラインを常時表示させる
 set laststatus=2
-" ステータス行に表示させる情報の指定(どこからかコピペしたので細かい意味はわかっていない)
-set statusline=%<%f\ %m%r%h%w%{'['.(&fenc!=''?&fenc:&enc).']['.&ff.']'}%=%l,%c%V%8P
 " ステータス行に現在のgitブランチを表示する
 set statusline+=%{fugitive#statusline()}
 " ウインドウのタイトルバーにファイルのパス情報等を表示する
@@ -72,15 +72,12 @@ set showcmd
 set nowritebackup
 set nobackup
 set noswapfile
-
 " バッファで開いているファイルのディレクトリでエクスクローラを開始する(でもエクスプローラって使ってない)
 set browsedir=buffer
 " 小文字のみで検索したときに大文字小文字を無視する
 set smartcase
 " 検索結果をハイライト表示する
 set hlsearch
-" 暗い背景色に合わせた配色にする
-set background=dark
 " タブ入力を複数の空白入力に置き換える
 set expandtab
 " 検索ワードの最初の文字を入力した時点で検索を開始する
@@ -89,8 +86,6 @@ set incsearch
 set hidden
 " 不可視文字を表示する
 set list
-" タブと行の続きを可視化する
-set listchars=tab:>\ ,extends:<
 " 行番号を表示する
 set number
 " 対応する括弧やブレースを表示する
@@ -109,20 +104,28 @@ set smarttab
 set whichwrap=b,s,h,l,<,>,[,]
 " バックスペースを有効にする
 set backspace=indent,eol,start
+
+" colorscheme
+colorscheme molokai
 " 構文毎に文字色を変化させる
 syntax on
-" カラースキーマの指定
-colorscheme desert
-" 行番号の色
-highlight LineNr ctermfg=darkyellow
-""""""""""""""""""""""""""""""
 
-" vim-indent-guides
-let s:hooks = neobundle#get_hooks("vim-indent-guides")
-function! s:hooks.on_source(bundle)
-    let g:indent_guides_guide_size=2
-    IndentGuidesEnable
-endfunction
+let g:molokai_original = 1
+let g:rehash256 = 1
+
+" indent guides
+let g:indent_guides_auto_colors = 0
+let g:indent_guides_enable_on_vim_statrup = 1
+let g:indent_guides_start_level = 1
+hi IndentGuidesOdd  ctermbg = grey
+hi IndentGUidesEven ctermbg  = darkgrey
+let g:indent_guides_guide_size = &tabstop
+
+set background=dark
+
+" 行番号の色
+highlight LineNr ctermfg=grey
+""""""""""""""""""""""""""""""
 
 " grep検索の実行後にQuickFix Listを表示する
 autocmd QuickFixCmdPost *grep* cwindow
@@ -224,3 +227,4 @@ imap ( ()<LEFT>
 """"""""""""""""""""""""""""""
 
 filetype on
+
