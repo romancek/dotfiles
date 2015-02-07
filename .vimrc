@@ -4,9 +4,7 @@ filetype off
 """"""""""""""""""""""""""""""
 " プラグインのセットアップ
 """"""""""""""""""""""""""""""
-
 if has('vim_starting')
-    set nocompatible
     set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
@@ -40,7 +38,7 @@ call neobundle#end()
 
 " Required:
 filetype plugin indent on
-
+syntax enable
 " If there are uninstalled bundles found on startup,
 " this will conveniently prompt you to install them.
 NeoBundleCheck
@@ -105,79 +103,82 @@ set whichwrap=b,s,h,l,<,>,[,]
 " バックスペースを有効にする
 set backspace=indent,eol,start
 
-" colorscheme
-colorscheme molokai
-" 構文毎に文字色を変化させる
-syntax on
-
-let g:molokai_original = 1
-let g:rehash256 = 1
+set expandtab
 
 " indent guides
-let g:indent_guides_auto_colors = 0
-let g:indent_guides_enable_on_vim_statrup = 1
-let g:indent_guides_start_level = 1
-hi IndentGuidesOdd  ctermbg = grey
-hi IndentGUidesEven ctermbg  = darkgrey
+
+let g:indent_guides_auto_colors=0
+let g:indent_guides_enable_on_vim_statrup=1
+let g:indent_guides_start_level=1
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven  guibg=#262626 ctermbg=gray
+autocmd VimEnter,Colorscheme * :hi IndentGUidesOdd guibg=#3c3c3c ctermbg=darkgray
 let g:indent_guides_guide_size = &tabstop
 
-set background=dark
+" 構文毎に文字色を変化させる
+syntax on
+" colorscheme
+colorscheme molokai
 
+let g:molokai_original=1
+let g:rehash256=1
+set background=light
+set background=dark
 " 行番号の色
 highlight LineNr ctermfg=grey
+
 """"""""""""""""""""""""""""""
 
 " grep検索の実行後にQuickFix Listを表示する
 autocmd QuickFixCmdPost *grep* cwindow
-
+"
 " http://blog.remora.cx/2010/12/vim-ref-with-unite.html
-""""""""""""""""""""""""""""""
-" Unit.vimの設定
-""""""""""""""""""""""""""""""
-" 入力モードで開始する
+"""""""""""""""""""""""""""""""
+"" Unit.vimの設定
+"""""""""""""""""""""""""""""""
+"" 入力モードで開始する
 let g:unite_enable_start_insert=1
-" バッファ一覧
+"" バッファ一覧
 noremap <C-P> :Unite buffer<CR>
-" ファイル一覧
+"" ファイル一覧
 noremap <C-N> :Unite -buffer-name=file file<CR>
-" 最近使ったファイルの一覧
+"" 最近使ったファイルの一覧
 noremap <C-Z> :Unite file_mru<CR>
-" sourcesを「今開いているファイルのディレクトリ」とする
+"" sourcesを「今開いているファイルのディレクトリ」とする
 noremap :uff :<C-u>UniteWithBufferDir file -buffer-name=file<CR>
-" ウィンドウを分割して開く
+"" ウィンドウを分割して開く
 au FileType unite nnoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
 au FileType unite inoremap <silent> <buffer> <expr> <C-J> unite#do_action('split')
-" ウィンドウを縦に分割して開く
+"" ウィンドウを縦に分割して開く
 au FileType unite nnoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
 au FileType unite inoremap <silent> <buffer> <expr> <C-K> unite#do_action('vsplit')
-" ESCキーを2回押すと終了する
+"" ESCキーを2回押すと終了する
 au FileType unite nnoremap <silent> <buffer> <ESC><ESC> :q<CR>
 au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
-""""""""""""""""""""""""""""""
-" http://inari.hatenablog.com/entry/2014/05/05/231307
-""""""""""""""""""""""""""""""
-" 全角スペースの表示
-""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""
+"" http://inari.hatenablog.com/entry/2014/05/05/231307
+"""""""""""""""""""""""""""""""
+"" 全角スペースの表示
+"""""""""""""""""""""""""""""""
 function! ZenkakuSpace()
     highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=darkgray
 endfunction
 
 if has('syntax')
-    augroup ZenkakuSpace
+   augroup ZenkakuSpace
     autocmd!
     autocmd ColorScheme * call ZenkakuSpace()
     autocmd VimEnter,WinEnter,BufRead * let w:m1=matchadd('ZenkakuSpace', '　')
     augroup END
     call ZenkakuSpace()
 endif
-""""""""""""""""""""""""""""""
-
+"""""""""""""""""""""""""""""""
+"
 " https://sites.google.com/site/fudist/Home/vim-nihongo-ban/-vimrc-sample
-""""""""""""""""""""""""""""""
-" 挿入モード時、ステータスラインの色を変更
-""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""
+"" 挿入モード時、ステータスラインの色を変更
+"""""""""""""""""""""""""""""""
 let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
-
+"
 if has('syntax')
     augroup InsertHook
     autocmd!
@@ -205,26 +206,27 @@ function! s:GetHighlight(hi)
     let hl = substitute(hl, 'xxx', '', '')
     return hl
 endfunction
-""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""
-" 最後のカーソル位置を復元する
-""""""""""""""""""""""""""""""
+"" 最後のカーソル位置を復元する
+"""""""""""""""""""""""""""""""
 if has("autocmd")
     autocmd BufReadPost *
     \ if line("'\"") > 0 && line ("'\"") <= line("$") |
     \ exe "normal! g'\"" |
     \ endif
 endif
-""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""
-" 自動的に閉じ括弧を入力
-""""""""""""""""""""""""""""""
+"" 自動的に閉じ括弧を入力
+"""""""""""""""""""""""""""""""
 imap { {}<LEFT>
 imap [ []<LEFT>
 imap ( ()<LEFT>
-""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""
 
 filetype on
+
 
