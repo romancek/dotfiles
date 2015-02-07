@@ -6,8 +6,8 @@ filetype off
 """"""""""""""""""""""""""""""
 
 if has('vim_starting')
-	set nocompatible
-	set runtimepath+=~/.vim/bundle/neobundle.vim/
+    set nocompatible
+    set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
 " Required:
@@ -118,11 +118,11 @@ highlight LineNr ctermfg=darkyellow
 """"""""""""""""""""""""""""""
 
 " vim-indent-guides
-let g:indent_guides_auto_colors=0
-autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd   ctermbg=110
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven  ctermbg=140
-let g:indent_guides_enable_on_vim_startup=1
-let g:indent_guides_guide_size=4
+let s:hooks = neobundle#get_hooks("vim-indent-guides")
+function! s:hooks.on_source(bundle)
+    let g:indent_guides_guide_size=2
+    IndentGuidesEnable
+endfunction
 
 " grep検索の実行後にQuickFix Listを表示する
 autocmd QuickFixCmdPost *grep* cwindow
@@ -156,16 +156,16 @@ au FileType unite inoremap <silent> <buffer> <ESC><ESC> <ESC>:q<CR>
 " 全角スペースの表示
 """"""""""""""""""""""""""""""
 function! ZenkakuSpace()
-	highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=darkgray
+    highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=darkgray
 endfunction
 
 if has('syntax')
-	augroup ZenkakuSpace
-	autocmd!
-	autocmd ColorScheme * call ZenkakuSpace()
-	autocmd VimEnter,WinEnter,BufRead * let w:m1=matchadd('ZenkakuSpace', '　')
-	augroup END
-	call ZenkakuSpace()
+    augroup ZenkakuSpace
+    autocmd!
+    autocmd ColorScheme * call ZenkakuSpace()
+    autocmd VimEnter,WinEnter,BufRead * let w:m1=matchadd('ZenkakuSpace', '　')
+    augroup END
+    call ZenkakuSpace()
 endif
 """"""""""""""""""""""""""""""
 
@@ -176,31 +176,31 @@ endif
 let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
 
 if has('syntax')
-	augroup InsertHook
-	autocmd!
-	autocmd InsertEnter * call s:StatusLine('Enter')
-	autocmd InsertLeave * call s:StatusLine('Leave')
-	augroup END
+    augroup InsertHook
+    autocmd!
+    autocmd InsertEnter * call s:StatusLine('Enter')
+    autocmd InsertLeave * call s:StatusLine('Leave')
+    augroup END
 endif
 
 let s:slhlcmd = ''
 function! s:StatusLine(mode)
-	if a:mode == 'Enter'
-		silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
-		silent exec g:hi_insert
-	else
-		highlight clear StatusLine
-		silent exec s:slhlcmd
-	endif
+    if a:mode == 'Enter'
+        silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
+        silent exec g:hi_insert
+        else
+        highlight clear StatusLine
+        silent exec s:slhlcmd
+    endif
 endfunction
 
 function! s:GetHighlight(hi)
-	redir => hl
-	exec 'highlight '.a:hi
-	redir END
-	let hl = substitute(hl, '[\r\n]', '', 'g')
-	let hl = substitute(hl, 'xxx', '', '')
-	return hl
+    redir => hl
+    exec 'highlight '.a:hi
+    redir END
+    let hl = substitute(hl, '[\r\n]', '', 'g')
+    let hl = substitute(hl, 'xxx', '', '')
+    return hl
 endfunction
 """"""""""""""""""""""""""""""
 
@@ -208,10 +208,10 @@ endfunction
 " 最後のカーソル位置を復元する
 """"""""""""""""""""""""""""""
 if has("autocmd")
-	autocmd BufReadPost *
-	\ if line("'\"") > 0 && line ("'\"") <= line("$") |
-	\ exe "normal! g'\"" |
-	\ endif
+    autocmd BufReadPost *
+    \ if line("'\"") > 0 && line ("'\"") <= line("$") |
+    \ exe "normal! g'\"" |
+    \ endif
 endif
 """"""""""""""""""""""""""""""
 
