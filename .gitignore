@@ -22,4 +22,4 @@ Thumbs.db
 *.lib
 *.sbr
 id_rsa
-
+!/.vim/bundle/neobundle.vim
