@@ -1,6 +1,4 @@
-[submodule "/home/Yuya-EP-SSD/dotfiles/.vim/bundle/neobundle.vim"]
-	path = /home/Yuya-EP-SSD/dotfiles/.vim/bundle/neobundle.vim
+[submodule ".vim/bundle/neobundle.vim"]
+	path = .vim/bundle/neobundle.vim
 	url = https://github.com/Shougo/neobundle.vim
-[submodule "/home/Yuya-EP-SSD/dotfiles/.vim/bundle/vimproc"]
-	path = /home/Yuya-EP-SSD/dotfiles/.vim/bundle/vimproc
-	url = https://github.com/Shougo/vimproc
+
