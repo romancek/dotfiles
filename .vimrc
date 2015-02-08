@@ -115,7 +115,7 @@ colorscheme molokai
 
 let g:molokai_original=1
 let g:rehash256=1
-set background=light
+"set background=light
 set background=dark
 " 行番号の色
 highlight LineNr ctermfg=grey
@@ -123,7 +123,7 @@ highlight LineNr ctermfg=grey
 " indent guides
 let g:indent_guides_auto_colors=0
 let g:indent_guides_start_level=1
-autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=darkgray
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
 "autocmd VimEnter,Colorscheme * :hi IndentGUidesOdd ctermbg=black
 let g:indent_guides_guide_size = &tabstop
 " Vim起動時にIndent Guidesを有効にする
