@@ -21,5 +21,6 @@ Thumbs.db
 *.dll
 *.lib
 *.sbr
+/.vim/bundle/
 id_rsa
 !/.vim/bundle/neobundle.vim
