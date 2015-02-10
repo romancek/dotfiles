@@ -108,8 +108,6 @@ set backspace=indent,eol,start
 
 set expandtab
 
-" 構文毎に文字色を変化させる
-syntax on
 " colorscheme
 colorscheme molokai
 
