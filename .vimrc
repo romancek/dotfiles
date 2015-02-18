@@ -37,6 +37,18 @@ NeoBundle 'vim-scripts/AnsiEsc.vim'
 NeoBundle 'KohPoll/vim-less'
 " colorscheme molokai
 NeoBundle 'tomasr/molokai'
+" Python補完機能
+NeoBundleLazy "davidhalter/jedi-vim", {
+            \ "autoload":{
+            \   "filetypes": ["python", "python3"],
+            \ },
+            \ "build": {
+           \   "mac": "pip install jedi",
+            \   "unix": "pip install jedi",
+            \ }}
+
+let s:hooks = neobundle#get_hooks("jedi-vim")
+
 call neobundle#end()
 
 " Required:
@@ -122,7 +134,7 @@ highlight LineNr ctermfg=grey
 let g:indent_guides_auto_colors=0
 let g:indent_guides_start_level=1
 autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=235
-"autocmd VimEnter,Colorscheme * :hi IndentGUidesOdd ctermbg=black
+autocmd VimEnter,Colorscheme * :hi IndentGUidesOdd ctermbg=233
 let g:indent_guides_guide_size = &tabstop
 " Vim起動時にIndent Guidesを有効にする
 au VimEnter * IndentGuidesEnable
@@ -227,6 +239,15 @@ imap { {}<LEFT>
 imap [ []<LEFT>
 imap ( ()<LEFT>
 """""""""""""""""""""""""""""""
+
+function! s:hooks.on_source(bundle)
+    " jediにvimの設定を任せると'completeopt+=preview'するので
+    " 自動設定機能をOFFにし手動で設定を行う
+    let g:jedi#auto_vim_configuration = 0
+    " 補完の最初の項目が選択された状態だと使いにくいためオフにする
+    let g:jedi#popup_select_first = 0
+endfunction
+
 
 filetype on
 
