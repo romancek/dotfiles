@@ -1,0 +1,19 @@
+[user]
+	name = Yuya Ono
+	email = "s.y2kmi@gmail.com"
+[core]
+	editor = vim -c \"set fenc=utf-8\"
+	precomposeunicode = true
+	quotepath = false
+	whitespace = cr-at-eol
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	ui = true
+[alias]
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    	lga = log --graph --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+	st = status
+	cm = commit
+	
